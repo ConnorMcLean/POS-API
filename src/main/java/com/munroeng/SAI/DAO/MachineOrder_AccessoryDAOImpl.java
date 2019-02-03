@@ -50,7 +50,7 @@ public class MachineOrder_AccessoryDAOImpl implements MachineOrder_AccessoryDAO 
       Session session = sessionFactory.getCurrentSession();
       MachineOrder_Accessory machine_order_accessory2 = session.byId(MachineOrder_Accessory.class).load(id);
       machine_order_accessory2.setAccessory(machine_order_accessory.getAccessory());
-      machine_order_accessory2.setMachineOrder(machine_order_accessory.getMO());
+      machine_order_accessory2.setMachineOrderId(machine_order_accessory.getMachineOrderId());
       session.flush();
    }
 

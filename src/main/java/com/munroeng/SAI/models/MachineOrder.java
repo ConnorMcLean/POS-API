@@ -6,16 +6,21 @@ package com.munroeng.SAI.models;
 
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 @Entity(name="MachineOrder")
 @Table(name="Machine_Orders")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class MachineOrder {
-	
-//	@EmbeddedId
-//	private MachineOrderId id;
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="machine_order_id")
@@ -24,16 +29,25 @@ public class MachineOrder {
 	@Column(name="serial_no")
 	private String serialNo;
 	
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="created_on")
+	private Date created_on;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@MapsId("machine_id")
+//	@JoinColumn(name="machine_id")
+	Machine machine;
 	
 //	@ManyToOne(targetEntity=Order.class)
 	@JoinColumn(name="order_id")
 	private long order_id;
 	
-//	@ManyToOne(targetEntity=Machine.class)
-	@JoinColumn(name="machine_id")
-	private long machine_id;
+////	@ManyToOne(targetEntity=Machine.class)
+//	@JoinColumn(name="machine_id")
+//	private long machine_id;
 
-	
+	@JsonManagedReference
 	@OneToMany(
 			mappedBy="machine_order",
 			cascade = CascadeType.ALL,
@@ -48,19 +62,22 @@ public class MachineOrder {
 	
 	public MachineOrder() {}
 	
-	public MachineOrder(long order, long machine_id, String serialNo) {
-		this.order_id = order;
-		this.machine_id = machine_id;
-		this.serialNo = serialNo;
+//	public MachineOrder(long order, long machine_id, String serialNo) {
+//		this.order_id = order;
+////		this.machine_id = machine_id;
+//		this.serialNo = serialNo;
 //		this.setMachine(machine);
-	}
+//	}
 	
 //	private Machine machine;
 	
-	
-	public long getMachineId() {	
-		return machine_id;
+	public String getCreated() {
+		return created_on.toString();
 	}
+	
+//	public long getMachineId() {	
+//		return machine_id;
+//	}
 	
 	public long getMachineOrder_id() {
 		return machine_order_id;
@@ -82,9 +99,9 @@ public class MachineOrder {
 		serialNo = Serial;
 	}
 	
-	public void setMachineId(long id) {
-		this.machine_id = id;
-	}
+//	public void setMachineId(long id) {
+//		this.machine_id = id;
+//	}
 	
 	public void setOrderId(long id) {
 		this.order_id = id;
@@ -141,7 +158,7 @@ public class MachineOrder {
 		         iterator.hasNext(); ) {
 	        MachineOrder_Accessory MacOrd_Acc = iterator.next();
 	 
-	        if (MacOrd_Acc.getMO().equals(this) &&
+	        if (MacOrd_Acc.getMachineOrderId() == this.machine_order_id &&
 	        		MacOrd_Acc.getAccessory().equals(a)) {
 	            iterator.remove();
 	            MacOrd_Acc.setMachineOrder(null);
@@ -170,14 +187,16 @@ public class MachineOrder {
 		
 		return cost;
 	}
+	
+	
 
-//	public Machine getMachine() {
-//		return machine;
-//	}
+	public Machine getMachine() {
+		return machine;
+	}
 //
-//	public void setMachine(Machine machine) {
-//		this.machine = machine;
-//	}
+	public void setMachine(Machine machine) {
+		this.machine = machine;
+	}
 	
 	
 		

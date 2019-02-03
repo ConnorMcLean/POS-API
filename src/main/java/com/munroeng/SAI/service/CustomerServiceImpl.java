@@ -34,10 +34,11 @@ public class CustomerServiceImpl implements CustomerService {
 		List<Order> o = customer.getOrders();
 		int i = 0, j=0;
 		while(i < o.size()) {
-			Hibernate.initialize(o.get(i).getMachines());
-			while(j < o.get(i).getMachines().size()) {
-				Hibernate.initialize(o.get(i).getMachines().get(j).getAccessories());
-				Hibernate.initialize(o.get(i).getMachines().get(j).getCutters());
+			Hibernate.initialize(o.get(i).getMachineOrders());
+			while(j < o.get(i).getMachineOrders().size()) {
+				Hibernate.initialize(o.get(i).getMachineOrders().get(j).getMachine());
+				Hibernate.initialize(o.get(i).getMachineOrders().get(j).getAccessories());
+				Hibernate.initialize(o.get(i).getMachineOrders().get(j).getCutters());
 				j++;
 			}
 			j=0;
@@ -50,15 +51,28 @@ public class CustomerServiceImpl implements CustomerService {
 //	@Transactional
 	public List<Customer> list() {
 		List<Customer> customers = customerDAO.list();	
-		int i = 0, j = 0, k = 0;
+		int i = 0, j = 0, k = 0, l=0, m=0;
 		while(i < customers.size()) {
 			Hibernate.initialize(customers.get(i).getOrders());
 			List<Order> o = customers.get(i).getOrders();
 			while(j < o.size()) {
-				Hibernate.initialize(o.get(j).getMachines());
-				while(k < o.get(j).getMachines().size()) {
-					Hibernate.initialize(o.get(j).getMachines().get(k).getAccessories());
-					Hibernate.initialize(o.get(j).getMachines().get(k).getCutters());
+				Hibernate.initialize(o.get(j).getMachineOrders());
+				while(k < o.get(j).getMachineOrders().size()) {
+					Hibernate.initialize(o.get(j).getMachineOrders().get(k).getMachine());
+//					
+//					while(l < o.get(j).getMachineOrders().get(k).getAccessories().size()) {
+//						Hibernate.initialize(o.get(j).getMachineOrders().get(k).getAccessories().get(l));
+//						l++;
+//					}
+//					while(m < o.get(j).getMachineOrders().get(k).getCutters().size()) {
+//						Hibernate.initialize(o.get(j).getMachineOrders().get(k).getCutters().get(m));
+//						m++;
+//					}
+//					l=0;
+//					m=0;
+					
+					Hibernate.initialize(o.get(j).getMachineOrders().get(k).getAccessories());
+					Hibernate.initialize(o.get(j).getMachineOrders().get(k).getCutters());
 					k++;
 				}
 				k=0;

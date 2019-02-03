@@ -2,8 +2,11 @@ package com.munroeng.SAI.models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity(name="Accessory")
 @Table(name="Accessories")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Accessory {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)

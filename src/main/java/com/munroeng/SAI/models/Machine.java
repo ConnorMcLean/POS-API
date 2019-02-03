@@ -3,8 +3,11 @@ package com.munroeng.SAI.models;
 import javax.persistence.*;
 import javax.persistence.Column;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity(name = "Machine")
 @Table(name="Machines")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Machine {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,9 +62,9 @@ public class Machine {
 		this.cost = cost;
 	}
 	
-	public String getMachine() {
-		return type + " " + build + " " + hammer;
-	}
+//	public String getMachine() {
+//		return type + " " + build + " " + hammer;
+//	}
 //	
 	
 }

@@ -1,0 +1,9 @@
+0:0:0:0:0:0:0:1 - - [03/Feb/2019:18:37:12 +1100] "GET /SAI/customer/1 HTTP/1.1" 200 571 http-bio-8080-exec-2 1322
+0:0:0:0:0:0:0:1 - - [03/Feb/2019:18:37:55 +1100] "POST /SAI/machine_order HTTP/1.1" 500 14010 http-bio-8080-exec-3 310
+0:0:0:0:0:0:0:1 - - [03/Feb/2019:18:38:44 +1100] "POST /SAI/machine_order HTTP/1.1" 400 968 http-bio-8080-exec-5 14
+0:0:0:0:0:0:0:1 - - [03/Feb/2019:18:38:50 +1100] "POST /SAI/machine_order HTTP/1.1" 500 14010 http-bio-8080-exec-7 91
+0:0:0:0:0:0:0:1 - - [03/Feb/2019:18:39:23 +1100] "POST /SAI/machine_order HTTP/1.1" 500 14011 http-bio-8080-exec-9 182
+0:0:0:0:0:0:0:1 - - [03/Feb/2019:18:39:41 +1100] "POST /SAI/machine_order HTTP/1.1" 500 14011 http-bio-8080-exec-1 76
+0:0:0:0:0:0:0:1 - - [03/Feb/2019:18:40:11 +1100] "POST /SAI/machine_order HTTP/1.1" 500 14011 http-bio-8080-exec-3 52
+0:0:0:0:0:0:0:1 - - [03/Feb/2019:18:40:32 +1100] "POST /SAI/machine_order HTTP/1.1" 400 968 http-bio-8080-exec-5 26
+0:0:0:0:0:0:0:1 - - [03/Feb/2019:18:44:15 +1100] "POST /SAI/machine_order HTTP/1.1" 500 6432 http-bio-8080-exec-7 31

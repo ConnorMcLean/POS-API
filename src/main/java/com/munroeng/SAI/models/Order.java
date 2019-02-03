@@ -50,7 +50,7 @@ public class Order {
 			mappedBy="order_id",
 			cascade = CascadeType.ALL,
 			orphanRemoval=true)
-	private List<MachineOrder> machines = new ArrayList<>();
+	private List<MachineOrder> machine_orders = new ArrayList<>();
 
 	//empty constructor
 	public Order() {}
@@ -122,39 +122,39 @@ public class Order {
 		this.order_ref = CustOrderId;
 	}
 	
-	public List<MachineOrder> getMachines(){
-		return machines;
+	public List<MachineOrder> getMachineOrders(){
+		return machine_orders;
 	}
 	
-	public void addMachine(long machine_id, String serialNo, Machine machine) {
-		MachineOrder MacOrd = new MachineOrder(order_id, machine_id, serialNo);
-		machines.add(MacOrd);
-	}
+//	public void addMachine(long machine_id, String serialNo, Machine machine) {
+//		MachineOrder MacOrd = new MachineOrder(order_id, machine_id, serialNo);
+//		machine_orders.add(MacOrd);
+//	}
 	
-	public void removeMachine(long machine_id) {
-		for (Iterator<MachineOrder> iterator = machines.iterator();
-		         iterator.hasNext(); ) {
-	        MachineOrder MacOrd = iterator.next();
-	 
-	        if ((MacOrd.getOrderId() == this.order_id) &&
-	        		(MacOrd.getMachineId() == machine_id)) {
-	            iterator.remove();
-//	            MacOrd.setMachineId(null);
-//	            MacOrd.setOrderId(null);
-	        }
-	    }
-		
-	}
+//	public void removeMachine(long machine_id) {
+//		for (Iterator<MachineOrder> iterator = machine_orders.iterator();
+//		         iterator.hasNext(); ) {
+//	        MachineOrder MacOrd = iterator.next();
+//	 
+//	        if ((MacOrd.getOrderId() == this.order_id) &&
+//	        		(MacOrd.getMachineId() == machine_id)) {
+//	            iterator.remove();
+////	            MacOrd.setMachineId(null);
+////	            MacOrd.setOrderId(null);
+//	        }
+//	    }
+//		
+//	}
 	
-	public void setMachines(List<MachineOrder> machines) {
-		this.machines = machines;
+	public void setMachineOrders(List<MachineOrder> machine_orders) {
+		this.machine_orders = machine_orders;
 	}
 	
 	public void setTotalCost() {
 		this.total_cost = 0;
 		int i = 0;
-		while(machines.size() < i) {
-			this.total_cost += machines.get(i).getMachineOrderCost();
+		while(machine_orders.size() < i) {
+			this.total_cost += machine_orders.get(i).getMachineOrderCost();
 		}
 		
 	}

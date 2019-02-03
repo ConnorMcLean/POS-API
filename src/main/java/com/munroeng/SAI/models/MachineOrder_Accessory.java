@@ -6,14 +6,19 @@ package com.munroeng.SAI.models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 @Entity(name="MachineOrder_Accessory")
 @Table(name="Machine_Order_Accessories")
 public class MachineOrder_Accessory {
 
-//	@EmbeddedId
-//	private MachineOrder_AccessoryId id;
+	@EmbeddedId
+	private MachineOrder_AccessoryId id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonBackReference
+	@ManyToOne
 	@MapsId("machine_order_id")
 	private MachineOrder machine_order;
 	
@@ -23,11 +28,11 @@ public class MachineOrder_Accessory {
 	
 	public MachineOrder_Accessory() {}
 	
-//	public MachineOrder_Accessory(MachineOrder M, Accessory A) {
-//		this.machine_order = M;
-//		this.accessory = A;
-//		this.id = new MachineOrder_AccessoryId(M.getMachineOrder_id(), A.getId());
-//	}
+	public MachineOrder_Accessory(MachineOrder M, Accessory A) {
+		this.machine_order = M;
+		this.accessory = A;
+		this.id = new MachineOrder_AccessoryId(M.getMachineOrder_id(), A.getId());
+	}
 	
 	public void setMachineOrderId(long id) {
 		this.id.setMachineOrderId(id);
@@ -37,17 +42,20 @@ public class MachineOrder_Accessory {
 		this.id.setAccessoryId(id);
 	}
 	
+//	@JsonIgnore
 	public long getMachineOrderId() {
 		return id.getMachineOrderId();
 	}
 	
+//	@JsonIgnore
 	public long getAccessoryId() {
 		return id.getAccessoryId();
 	}
 	
-	public MachineOrder getMO() {
-		return machine_order;
-	}
+	
+//	public MachineOrder getMO() {
+//		return machine_order;
+//	}
 	
 	public Accessory getAccessory() {
 		return accessory;
@@ -59,6 +67,11 @@ public class MachineOrder_Accessory {
 	
 	public void setAccessory(Accessory a) {
 		this.accessory = a;
+	}
+	
+	@JsonIgnore
+	public MachineOrder_AccessoryId getId() {
+		return id;
 	}
 	
 	

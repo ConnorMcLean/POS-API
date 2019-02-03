@@ -28,19 +28,40 @@ public class MachineOrderServiceImpl implements MachineOrderService {
 	@Override
 	public MachineOrder get(long machine_id, long order_id) {
 		MachineOrder mo = machine_orderDAO.get(machine_id, order_id);
-		Hibernate.initialize(mo.getAccessories());
-		Hibernate.initialize(mo.getCutters());
+		int i = 0, k = 0;
+		Hibernate.initialize(mo.getMachine());
+		while(i < mo.getAccessories().size()) {
+			Hibernate.initialize(mo.getAccessories().get(i));
+			Hibernate.initialize(mo.getAccessories().get(i).getAccessory());
+			i++;
+		}
+		while(k < mo.getCutters().size()) {
+			Hibernate.initialize(mo.getCutters().get(k));
+			Hibernate.initialize(mo.getCutters().get(k).getCutter());
+			k++;
+		}
 		return  mo;
 	}
 
 	@Override
 	public List<MachineOrder> list(long id) {
 		List<MachineOrder> mo = machine_orderDAO.list(id);
-		int i = 0;
+		int i = 0, j = 0, k=0;
 		while(i < mo.size()) {
 			MachineOrder mo_i = mo.get(i);
-			Hibernate.initialize(mo_i.getAccessories());
-			Hibernate.initialize(mo_i.getCutters());
+			Hibernate.initialize(mo_i.getMachine());
+			while(j < mo_i.getAccessories().size()) {
+				Hibernate.initialize(mo_i.getAccessories().get(j));
+				Hibernate.initialize(mo_i.getAccessories().get(j).getAccessory());
+				j++;
+			}
+			while(k < mo_i.getCutters().size()) {
+				Hibernate.initialize(mo_i.getCutters().get(k));
+				Hibernate.initialize(mo_i.getCutters().get(k).getCutter());
+				k++;
+			}
+			j=0;
+			k=0;
 			i++;
 		}
 		return mo;

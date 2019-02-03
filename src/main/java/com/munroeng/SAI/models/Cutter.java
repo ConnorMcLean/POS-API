@@ -9,14 +9,19 @@ public class Cutter {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long cutter_id;
 	
+	@Column(nullable=false)
 	private String type;
 	
+	@Column(nullable=true)
 	private double size_imp;
 	
+	@Column(nullable=true)
 	private double size_met;
 	
+	@Column(nullable=true)
 	private String description;
 	
+	@Column(nullable=false)
 	private float cost;
 	
 	public Cutter() {

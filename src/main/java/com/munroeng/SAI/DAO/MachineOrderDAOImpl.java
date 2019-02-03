@@ -73,8 +73,8 @@ public class MachineOrderDAOImpl implements MachineOrderDAO {
       machine_order2.setCutters(machine_order.getCutters());
       machine_order2.setOrderId(machine_order.getOrderId());
       machine_order2.setMachineOrder_id(machine_order.getMachineOrder_id());
-      machine_order2.setMachineId(machine_order2.getMachineId());
-//      machine_order2.setMachine(machine_order.getMachine());
+//      machine_order2.setMachineId(machine_order2.getMachineId());
+      machine_order2.setMachine(machine_order.getMachine());
       session.flush();
    }
 
