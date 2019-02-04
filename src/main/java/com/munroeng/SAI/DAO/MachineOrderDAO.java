@@ -2,6 +2,7 @@ package com.munroeng.SAI.DAO;
 
 import java.util.List;
 
+import com.munroeng.SAI.models.Machine;
 import com.munroeng.SAI.models.MachineOrder;
 
 public interface MachineOrderDAO {
@@ -15,4 +16,6 @@ public interface MachineOrderDAO {
 	void update(long id, MachineOrder machine_order);
 	
 	void delete(long id);
+
+//	long saveMachine(long maachine_order_id, Machine m);
 }

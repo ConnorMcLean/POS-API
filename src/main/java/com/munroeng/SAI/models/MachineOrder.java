@@ -34,7 +34,8 @@ public class MachineOrder {
 	@Column(name="created_on")
 	private Date created_on;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY,
+				cascade = CascadeType.ALL)
 	@MapsId("machine_id")
 //	@JoinColumn(name="machine_id")
 	Machine machine;
@@ -193,7 +194,11 @@ public class MachineOrder {
 	public Machine getMachine() {
 		return machine;
 	}
-//
+
+//	public void setMachineId(long id) {
+//		this.machine.setId(id);
+//	}
+
 	public void setMachine(Machine machine) {
 		this.machine = machine;
 	}

@@ -13,6 +13,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.munroeng.SAI.models.Machine;
 import com.munroeng.SAI.models.MachineOrder;
 
 @Repository
@@ -23,10 +24,15 @@ public class MachineOrderDAOImpl implements MachineOrderDAO {
 	
 	@Override
 	public long save(MachineOrder m) {
-		
 		sessionFactory.getCurrentSession().save(m);
 		return m.getMachineOrder_id();
-		
+	}
+	
+	@Override
+	public long saveMachine(long machine_order_id, Machine m) {
+		Session session = sessionFactory.getCurrentSession();
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+	      CriteriaQuery<MachineOrder> cq = cb.createQuery(MachineOrder.class);
 	}
 
 	//List all MachineOrders for a specific order
