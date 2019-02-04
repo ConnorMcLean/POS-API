@@ -1,5 +1,7 @@
 package com.munroeng.SAI.service;
 
+import com.munroeng.SAI.models.Accessory;
+import com.munroeng.SAI.models.Machine;
 import com.munroeng.SAI.models.MachineOrder;
 
 import java.util.List;
@@ -79,6 +81,12 @@ public class MachineOrderServiceImpl implements MachineOrderService {
 	public void delete(long id) {
 		machine_orderDAO.delete(id);
 		
+	}
+
+	@Override
+	@Transactional
+	public long saveAccessory(long machine_id, long order_id, Accessory accessory) {
+		return machine_orderDAO.saveAccessory(machine_id, order_id, accessory);
 	}
 
 }

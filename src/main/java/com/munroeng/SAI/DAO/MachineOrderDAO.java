@@ -2,6 +2,7 @@ package com.munroeng.SAI.DAO;
 
 import java.util.List;
 
+import com.munroeng.SAI.models.Accessory;
 import com.munroeng.SAI.models.Machine;
 import com.munroeng.SAI.models.MachineOrder;
 
@@ -17,5 +18,5 @@ public interface MachineOrderDAO {
 	
 	void delete(long id);
 
-//	long saveMachine(long maachine_order_id, Machine m);
+	public long saveAccessory(long machine_id, long order_id, Accessory accessory);
 }

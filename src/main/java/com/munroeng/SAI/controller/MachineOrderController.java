@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.munroeng.SAI.models.Accessory;
+import com.munroeng.SAI.models.Machine;
 import com.munroeng.SAI.models.MachineOrder;
 import com.munroeng.SAI.service.MachineOrderService;
 
@@ -29,6 +31,13 @@ public class MachineOrderController {
 	public ResponseEntity<?> save(@RequestBody MachineOrder machine_order){
 		long id = machine_orderService.save(machine_order);
 		return ResponseEntity.ok().body("New machine_order has been saved with ID" + id );
+	}
+	
+	@PostMapping("/order/{order_id}/machine_order/{machine_id}/accessory")
+	public ResponseEntity<?> saveAccessory(@PathVariable("machine_id") long machine_id, @PathVariable("order_id") long order_id,
+	@RequestBody Accessory accessory){
+		long id = machine_orderService.saveAccessory(machine_id, order_id, accessory);
+		return ResponseEntity.ok().body("New accessory has been saved to machine_order with ID : " +  machine_id);
 	}
 	
 	//Get a machine_order by id

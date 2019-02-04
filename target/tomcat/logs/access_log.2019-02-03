@@ -1,2 +1,0 @@
-0:0:0:0:0:0:0:1 - - [03/Feb/2019:18:59:44 +1100] "POST /SAI/machine_order HTTP/1.1" 500 14011 http-bio-8080-exec-2 1435
-0:0:0:0:0:0:0:1 - - [03/Feb/2019:18:59:58 +1100] "POST /SAI/machine_order HTTP/1.1" 500 16892 http-bio-8080-exec-4 91

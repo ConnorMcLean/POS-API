@@ -34,10 +34,9 @@ public class MachineOrder {
 	@Column(name="created_on")
 	private Date created_on;
 	
-	@ManyToOne(fetch=FetchType.LAZY,
-				cascade = CascadeType.ALL)
-	@MapsId("machine_id")
-//	@JoinColumn(name="machine_id")
+	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.MERGE)
+//	@MapsId("machine_id")
+	@JoinColumn(name="machine_id")
 	Machine machine;
 	
 //	@ManyToOne(targetEntity=Order.class)
@@ -154,19 +153,19 @@ public class MachineOrder {
 		accessories.add(MacOrd_Acc);
 	}
 	
-	public void removeAccessory(Accessory a) {
-		for (Iterator<MachineOrder_Accessory> iterator = accessories.iterator();
-		         iterator.hasNext(); ) {
-	        MachineOrder_Accessory MacOrd_Acc = iterator.next();
-	 
-	        if (MacOrd_Acc.getMachineOrderId() == this.machine_order_id &&
-	        		MacOrd_Acc.getAccessory().equals(a)) {
-	            iterator.remove();
-	            MacOrd_Acc.setMachineOrder(null);
-	            MacOrd_Acc.setAccessory(null);
-	        }
-	    }
-	}
+//	public void removeAccessory(Accessory a) {
+//		for (Iterator<MachineOrder_Accessory> iterator = accessories.iterator();
+//		         iterator.hasNext(); ) {
+//	        MachineOrder_Accessory MacOrd_Acc = iterator.next();
+//	 
+//	        if (MacOrd_Acc.getMachineOrderId() == this.machine_order_id &&
+//	        		MacOrd_Acc.getAccessory().equals(a)) {
+//	            iterator.remove();
+//	            MacOrd_Acc.setMachineOrder(null);
+//	            MacOrd_Acc.setAccessory(null);
+//	        }
+//	    }
+//	}
 	
 	//TODO:FIX COST CALCULATION
 	
