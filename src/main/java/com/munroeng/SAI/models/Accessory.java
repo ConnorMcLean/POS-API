@@ -1,3 +1,5 @@
+//Accessory model used in Hibernate ORM for RESTful API service
+//written by Connor McLean
 package com.munroeng.SAI.models;
 
 import javax.persistence.*;

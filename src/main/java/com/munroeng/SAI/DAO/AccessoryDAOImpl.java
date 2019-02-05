@@ -1,3 +1,5 @@
+//DAO interface implementation for accessory model
+//written by Connor McLean
 package com.munroeng.SAI.DAO;
 
 import java.util.List;
@@ -21,13 +23,15 @@ public class AccessoryDAOImpl implements AccessoryDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	//save accessory
 	@Override
 	public long save(Accessory a) { 
 		sessionFactory.getCurrentSession().save(a);
 		return a.getId();
 		
 	}
-
+	
+	//get a list of all accessories
 	@Override
 	public List<Accessory> list() {
 	      Session session = sessionFactory.getCurrentSession();
@@ -39,12 +43,13 @@ public class AccessoryDAOImpl implements AccessoryDAO {
 	      return query.getResultList();
 	}
 
+	//get accessory by id
 	@Override
 	public Accessory get(long id) {
 		return sessionFactory.getCurrentSession().get(Accessory.class, id);
 	}
 	
-	
+	//Update accessory by ID
    @Override
    public void update(long id, Accessory accessory) {
       Session session = sessionFactory.getCurrentSession();
@@ -56,6 +61,7 @@ public class AccessoryDAOImpl implements AccessoryDAO {
       session.flush();
    }
 
+   //delete accessory by id
    @Override
    public void delete(long id) {
       Session session = sessionFactory.getCurrentSession();

@@ -1,3 +1,5 @@
+//Service interface implementation for Accessory model
+//written by Connor McLean
 package com.munroeng.SAI.service;
 
 import java.util.List;

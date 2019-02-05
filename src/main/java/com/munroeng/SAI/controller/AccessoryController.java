@@ -1,3 +1,5 @@
+//Controller for Accessory model in RESTful API service
+//Written by Connor McLean
 package com.munroeng.SAI.controller;
 
 import java.util.List;

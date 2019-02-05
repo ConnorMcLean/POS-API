@@ -1,3 +1,5 @@
+//Machine model used in Hibernate ORM for RESTful API service
+//Written by Connor McLean
 package com.munroeng.SAI.models;
 
 import javax.persistence.*;
@@ -65,10 +67,5 @@ public class Machine {
 	public void setCost(float cost) {
 		this.cost = cost;
 	}
-	
-//	public String getMachine() {
-//		return type + " " + build + " " + hammer;
-//	}
-//	
 	
 }

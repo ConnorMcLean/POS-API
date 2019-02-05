@@ -1,3 +1,5 @@
+//DAO interface Implementation for Machine model
+//written by Connor McLean
 package com.munroeng.SAI.DAO;
 
 import java.util.List;
@@ -21,13 +23,15 @@ public class MachineDAOImpl implements MachineDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	//Save machine
 	@Override
 	public long save(Machine m) {
 		sessionFactory.getCurrentSession().save(m);
 		return m.getId();
 		
 	}
-
+	
+	//List all machines
 	@Override
 	public List<Machine> list() {
 	      Session session = sessionFactory.getCurrentSession();
@@ -39,12 +43,13 @@ public class MachineDAOImpl implements MachineDAO {
 	      return query.getResultList();
 	}
 
+	//Get machine by ID
 	@Override
 	public Machine get(long id) {
 		return sessionFactory.getCurrentSession().get(Machine.class, id);
 	}
 	
-	
+	//update machine by ID
    @Override
    public void update(long id, Machine machine) {
       Session session = sessionFactory.getCurrentSession();
@@ -56,6 +61,7 @@ public class MachineDAOImpl implements MachineDAO {
       session.flush();
    }
 
+   //Delete machine by ID
    @Override
    public void delete(long id) {
       Session session = sessionFactory.getCurrentSession();
