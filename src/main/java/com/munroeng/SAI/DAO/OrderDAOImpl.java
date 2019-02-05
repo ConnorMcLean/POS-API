@@ -1,3 +1,5 @@
+//DAO implementation for order model
+//Written by Connor McLean
 package com.munroeng.SAI.DAO;
 
 import java.util.List;
@@ -23,13 +25,16 @@ public class OrderDAOImpl implements OrderDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	//Save customer with relevant customer_id
 	@Override
-	public long save(Order o) {
+	public long save(long cust_id, Order o) {
+		o.setCustId(cust_id);
 		sessionFactory.getCurrentSession().save(o);
 		return o.getId();
 		
 	}
 
+	//List all orders in system
 	@Override
 	public List<Order> list() {
 	      Session session = sessionFactory.getCurrentSession();
@@ -41,16 +46,25 @@ public class OrderDAOImpl implements OrderDAO {
 	      return query.getResultList();
 	}
 
+	//get specific order return null if invalid customer_id
 	@Override
-	public Order get(long id) {
-		return sessionFactory.getCurrentSession().get(Order.class, id);
+	public Order get(long cust_id, long order_id) {
+		Order o = sessionFactory.getCurrentSession().get(Order.class, order_id);
+		if(o.getCustId() != cust_id) {
+			return null;
+		}
+		return o;
 	}
 	
 	
+	//Update specific order, return null if invalid customer_id
    @Override
-   public void update(long id, Order order) {
+   public Order update(long cust_id, long order_id, Order order) {
       Session session = sessionFactory.getCurrentSession();
-      Order order2 = session.byId(Order.class).load(id);
+      Order order2 = session.byId(Order.class).load(order_id);
+      if(order.getCustId() != cust_id) {
+    	  return null;
+      }
       
       //TODO: query and update total cost?
       //Lots of overhead :/
@@ -60,13 +74,30 @@ public class OrderDAOImpl implements OrderDAO {
       order2.setShipAddr(order.getShipAddr());
       order2.setCustId(order.getCustId());
       session.flush();
+      return order2;
    }
 
+   //delete specific order
    @Override
-   public void delete(long id) {
+   public void delete(long cust_id, long order_id) {
       Session session = sessionFactory.getCurrentSession();
-      Order order = session.byId(Order.class).load(id);
-      session.delete(order);
+      Order order = session.byId(Order.class).load(order_id);
+      if(order.getCustId() == cust_id) {
+    	  session.delete(order);
+      }
    }
+
+   //Get all orders for a specific customer
+	@Override
+	public List<Order> listCustOrders(long cust_id) {
+	    Session session = sessionFactory.getCurrentSession();
+	    CriteriaBuilder cb = session.getCriteriaBuilder();
+	    CriteriaQuery<Order> cq = cb.createQuery(Order.class);
+	    Root<Order> root = cq.from(Order.class);
+	    cq.select(root);
+	    cq.where(cb.equal(root.get("customer_id"), cust_id));
+	    Query<Order> query = session.createQuery(cq);
+	    return query.getResultList();
+	}
 
 }

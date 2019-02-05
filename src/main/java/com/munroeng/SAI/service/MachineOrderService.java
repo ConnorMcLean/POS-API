@@ -14,10 +14,14 @@ public interface MachineOrderService {
 	
 	public List<MachineOrder> list(long id);
 	
-	void update(long id, MachineOrder machine_order);
+	public List<MachineOrder> listAllMachineOrders();
 	
-	void delete(long id);
+	public void update(long id, MachineOrder machine_order);
+	
+	public void delete(long id);
 
 	public long saveAccessory(long machine_id, long order_id, Accessory accessory);
+
+	public long RemoveAccessory(long machine_id, long order_id, Accessory accessory);
 	
 }

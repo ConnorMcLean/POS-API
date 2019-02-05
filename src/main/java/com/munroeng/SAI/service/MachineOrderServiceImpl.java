@@ -48,24 +48,7 @@ public class MachineOrderServiceImpl implements MachineOrderService {
 	@Override
 	public List<MachineOrder> list(long id) {
 		List<MachineOrder> mo = machine_orderDAO.list(id);
-		int i = 0, j = 0, k=0;
-		while(i < mo.size()) {
-			MachineOrder mo_i = mo.get(i);
-			Hibernate.initialize(mo_i.getMachine());
-			while(j < mo_i.getAccessories().size()) {
-				Hibernate.initialize(mo_i.getAccessories().get(j));
-				Hibernate.initialize(mo_i.getAccessories().get(j).getAccessory());
-				j++;
-			}
-			while(k < mo_i.getCutters().size()) {
-				Hibernate.initialize(mo_i.getCutters().get(k));
-				Hibernate.initialize(mo_i.getCutters().get(k).getCutter());
-				k++;
-			}
-			j=0;
-			k=0;
-			i++;
-		}
+		this.InitialiseNested(mo);
 		return mo;
 	}
 
@@ -74,6 +57,13 @@ public class MachineOrderServiceImpl implements MachineOrderService {
 	public void update(long id, MachineOrder machine_order) {
 		machine_orderDAO.update(id, machine_order);
 		
+	}
+	
+	
+	public List<MachineOrder> listAllMachineOrders(){
+		List<MachineOrder> mo = machine_orderDAO.listAllMachineOrders();
+		this.InitialiseNested(mo);
+		return mo;
 	}
 
 	@Override
@@ -87,6 +77,43 @@ public class MachineOrderServiceImpl implements MachineOrderService {
 	@Transactional
 	public long saveAccessory(long machine_id, long order_id, Accessory accessory) {
 		return machine_orderDAO.saveAccessory(machine_id, order_id, accessory);
+	}
+
+	@Override
+	@Transactional
+	public long RemoveAccessory(long machine_id, long order_id, Accessory accessory) {
+		return machine_orderDAO.RemoveAccessory(machine_id, order_id, accessory);
+	}
+	
+	
+	//Helper function to lazy initialize all nested objects 
+	public void InitialiseNested(List<MachineOrder> mo) {
+		int i = 0, j = 0, k=0;
+		
+		//Initialize all machine orders
+		while(i < mo.size()) {
+			MachineOrder mo_i = mo.get(i);
+			
+			//Initialize machine
+			Hibernate.initialize(mo_i.getMachine());
+			
+			//Initialize accessories
+			while(j < mo_i.getAccessories().size()) {
+				Hibernate.initialize(mo_i.getAccessories().get(j));
+				Hibernate.initialize(mo_i.getAccessories().get(j).getAccessory());
+				j++;
+			}
+			
+			//Initialize cutters
+			while(k < mo_i.getCutters().size()) {
+				Hibernate.initialize(mo_i.getCutters().get(k));
+				Hibernate.initialize(mo_i.getCutters().get(k).getCutter());
+				k++;
+			}
+			j=0;
+			k=0;
+			i++;
+		}
 	}
 
 }

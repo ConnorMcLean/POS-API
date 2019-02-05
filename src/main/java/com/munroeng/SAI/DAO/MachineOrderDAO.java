@@ -19,4 +19,8 @@ public interface MachineOrderDAO {
 	void delete(long id);
 
 	public long saveAccessory(long machine_id, long order_id, Accessory accessory);
+
+	public long RemoveAccessory(long machine_id, long order_id, Accessory accessory);
+
+	List<MachineOrder> listAllMachineOrders();
 }

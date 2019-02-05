@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import com.munroeng.SAI.models.Accessory;
 import com.munroeng.SAI.models.Machine;
 import com.munroeng.SAI.models.MachineOrder;
+import com.munroeng.SAI.models.MachineOrder_Accessory;
 
 @Repository
 public class MachineOrderDAOImpl implements MachineOrderDAO {
@@ -39,6 +40,18 @@ public class MachineOrderDAOImpl implements MachineOrderDAO {
 	    m.setMachine(Mo);
 		session.save(m);
 		return m.getMachineOrder_id();
+	}
+	
+	//List all MachineOrders for a specific order
+	@Override
+	public List<MachineOrder> listAllMachineOrders() {
+	      Session session = sessionFactory.getCurrentSession();
+	      CriteriaBuilder cb = session.getCriteriaBuilder();
+	      CriteriaQuery<MachineOrder> cq = cb.createQuery(MachineOrder.class);
+	      Root<MachineOrder> root = cq.from(MachineOrder.class);
+	      cq.select(root);
+	      Query<MachineOrder> query = session.createQuery(cq);
+	      return query.getResultList();
 	}
 
 
@@ -98,7 +111,8 @@ public class MachineOrderDAOImpl implements MachineOrderDAO {
       session.delete(machine_order);
    }
 
-
+   //Add accessory to existing machine_order
+   
 	@Override
 	public long saveAccessory(long machine_id, long order_id, Accessory accessory) {
 		
@@ -128,6 +142,41 @@ public class MachineOrderDAOImpl implements MachineOrderDAO {
 	    //Add to object
 	    Mo.addAccessory(a);
 	    session.saveOrUpdate(Mo);
+		return Mo.getMachineOrder_id();
+	}
+
+	
+	//Remove accessory from machine_order
+
+	@Override
+	public long RemoveAccessory(long machine_id, long order_id, Accessory accessory) {
+		
+//		//Find current Machine Order
+		Session session = sessionFactory.getCurrentSession();
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+	    CriteriaQuery<MachineOrder> cq = cb.createQuery(MachineOrder.class);
+	    Root<MachineOrder> root = cq.from(MachineOrder.class);
+	    cq.select(root);
+	    cq.where(
+	    		cb.and(cb.equal(root.get("order_id"), order_id),
+	    				cb.equal(root.get("machine_order_id"), machine_id))
+	    		);
+	    Query<MachineOrder> query = session.createQuery(cq);
+	    MachineOrder Mo = query.getSingleResult();
+	    
+	    //Find referenced accessory
+	    
+	    CriteriaQuery<Accessory> acc = cb.createQuery(Accessory.class);
+	    Root<Accessory> accRoot = acc.from(Accessory.class);
+	    acc.select(accRoot);
+	    acc.where(
+	    		cb.and(cb.equal(accRoot.get("id"), accessory.getId())));
+	    Query<Accessory> AccQ = session.createQuery(acc);
+	    Accessory a = AccQ.getSingleResult();
+   
+	    //Add to object
+	    Mo.removeAccessory(a);
+	    session.update(Mo);
 		return Mo.getMachineOrder_id();
 	}
 

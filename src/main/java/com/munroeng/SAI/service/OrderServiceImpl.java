@@ -1,3 +1,5 @@
+//Implementation of Service interface for order model
+//Written by Connor McLean
 package com.munroeng.SAI.service;
 
 import java.util.List;
@@ -17,18 +19,64 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private OrderDAO orderDAO;
 
+	//Save a new order
 	@Transactional
 	@Override
-	public long save(Order order) {
-		return orderDAO.save(order);
+	public long save(long cust_id, Order order) {
+		return orderDAO.save(cust_id, order);
 	}
 
+	//Get order based on order and customer id
 	@Override
-	public Order get(long id) {
-		Order o = orderDAO.get(id);
-		Hibernate.initialize(o.getMachineOrders());
-		//Iterate through objects lazily initializing
+	public Order get(long cust_id, long order_id) {
+		Order o = orderDAO.get(cust_id, order_id);
+		this.InitializeOrder(o);
+		return o;
+	}
+
+	//List all orders in system
+	@Override
+	public List<Order> list() {
+		List<Order> o = orderDAO.list();
+		this.InitializeOrderList(o);
+		return o;
+	}
+
+	//Update order object
+	@Override
+	@Transactional
+	public Order update(long cust_id, long order_id, Order order) {
+		return orderDAO.update(cust_id, order_id, order);
 		
+	}
+	//Delete order object
+	@Override
+	@Transactional
+	public void delete(long cust_id, long order_id) {
+		orderDAO.delete(cust_id, order_id);
+		
+	}
+
+	//List all orders for a specific customer
+	@Override
+	public List<Order> listCustOrders(long cust_id) {
+		List<Order> o = orderDAO.listCustOrders(cust_id);
+		this.InitializeOrderList(o);
+		return o;
+	}
+	
+	//Helper function to initialize all orders in a list
+	public void InitializeOrderList(List<Order> o) {
+		int i = 0;
+		while(i < o.size()) {
+			this.InitializeOrder(o.get(i));
+			i++;
+		}
+	}
+	
+	//Helper function to initialize all nested objects in an order
+	public void InitializeOrder(Order o) {
+		Hibernate.initialize(o.getMachineOrders());
 		int i = 0, j=0, k=0;
 		while(i < o.getMachineOrders().size()) {
 			Hibernate.initialize(o.getMachineOrders().get(i).getMachine());
@@ -46,49 +94,6 @@ public class OrderServiceImpl implements OrderService {
 			k = 0;
 			i++;
 		}
-		return o;
-	}
-
-
-	@Override
-	public List<Order> list() {
-		List<Order> o = orderDAO.list();
-		int i =0, j=0, k =0, l=0;
-		while(i < o.size()) {
-			while(j < o.get(i).getMachineOrders().size()) {
-				Hibernate.initialize(o.get(i).getMachineOrders().get(j).getMachine());
-				while(l < o.get(i).getMachineOrders().get(j).getAccessories().size()) {
-					Hibernate.initialize(o.get(i).getMachineOrders().get(j).getAccessories().get(l));
-					Hibernate.initialize(o.get(i).getMachineOrders().get(j).getAccessories().get(l).getAccessory());
-					l++;
-				}
-				while(k < o.get(i).getMachineOrders().get(j).getCutters().size()) {
-					Hibernate.initialize(o.get(i).getMachineOrders().get(j).getCutters().get(k));
-					Hibernate.initialize(o.get(i).getMachineOrders().get(j).getCutters().get(k).getCutter());
-					k++;
-				}
-				l=0;
-				k=0;
-				j++;
-			}
-			j=0;
-			i++;
-		}
-		return o;
-	}
-
-	@Override
-	@Transactional
-	public void update(long id, Order order) {
-		orderDAO.update(id, order);
-		
-	}
-
-	@Override
-	@Transactional
-	public void delete(long id) {
-		orderDAO.delete(id);
-		
 	}
 
 }

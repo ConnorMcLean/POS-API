@@ -1,3 +1,5 @@
+//DAO interface for order model
+//Written by Connor McLean
 package com.munroeng.SAI.DAO;
 
 import java.util.List;
@@ -6,13 +8,15 @@ import com.munroeng.SAI.models.*;
 
 public interface OrderDAO {
 	
-	public long save(Order m);
+	public long save(long cust_id, Order m);
 	
-	public Order get(long id);
+	public Order get(long cust_id, long order_id);
 	
 	public List<Order> list();
 	
-	void update(long id, Order order);
+	public Order update(long cust_id, long order_id, Order order);
 	
-	void delete(long id);
+	void delete(long cust_id, long order_id);
+
+	public List<Order> listCustOrders(long cust_id);
 }

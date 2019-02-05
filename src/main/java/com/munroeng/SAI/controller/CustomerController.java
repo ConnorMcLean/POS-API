@@ -1,3 +1,6 @@
+//Controller for customer model for RESTful API
+//written by Connor McLean
+
 package com.munroeng.SAI.controller;
 
 import java.util.List;

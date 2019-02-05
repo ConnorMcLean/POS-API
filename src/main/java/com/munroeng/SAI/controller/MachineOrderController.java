@@ -33,11 +33,20 @@ public class MachineOrderController {
 		return ResponseEntity.ok().body("New machine_order has been saved with ID" + id );
 	}
 	
+	
+	//Add new accessory to machine_order
 	@PostMapping("/order/{order_id}/machine_order/{machine_id}/accessory")
 	public ResponseEntity<?> saveAccessory(@PathVariable("machine_id") long machine_id, @PathVariable("order_id") long order_id,
 	@RequestBody Accessory accessory){
 		long id = machine_orderService.saveAccessory(machine_id, order_id, accessory);
 		return ResponseEntity.ok().body("New accessory has been saved to machine_order with ID : " +  machine_id);
+	}
+	
+	@DeleteMapping("/order/{order_id}/machine_order/{machine_id}/accessory")
+	public ResponseEntity<?> DeleteAccessory(@PathVariable("machine_id") long machine_id, @PathVariable("order_id") long order_id,
+	@RequestBody Accessory accessory){
+		long id = machine_orderService.RemoveAccessory(machine_id, order_id, accessory);
+		return ResponseEntity.ok().body("Accessory has been deleted from machine_order with ID : " +  machine_id);
 	}
 	
 	//Get a machine_order by id
@@ -54,10 +63,17 @@ public class MachineOrderController {
       return ResponseEntity.ok().body("machine_order has been updated successfully.");
    }
 	
-	//Get all machine_order
+	//Get all machine_order for specific order
 	@GetMapping("/order/{order_id}/machine_orders")
 	   public ResponseEntity<List<MachineOrder>> list(@PathVariable("order_id") long id) {
 	      List<MachineOrder> machines = machine_orderService.list(id);
+	      return ResponseEntity.ok().body(machines);
+	   }
+	
+	//Get all machine_order
+	@GetMapping("/machine_orders")
+	   public ResponseEntity<List<MachineOrder>> listAllMachineOrders() {
+	      List<MachineOrder> machines = machine_orderService.listAllMachineOrders();
 	      return ResponseEntity.ok().body(machines);
 	   }
 	

@@ -1,3 +1,5 @@
+//DAO interface for customer model
+//Written Connor McLean
 package com.munroeng.SAI.DAO;
 
 import java.util.List;
