@@ -1,9 +1,14 @@
+//Cutter model used in Hibernate ORM for RESTful API service
+//Written by Connor McLean
 package com.munroeng.SAI.models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity(name="Cutter")
 @Table(name="Cutters")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Cutter {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,10 +18,10 @@ public class Cutter {
 	private String type;
 	
 	@Column(nullable=true)
-	private double size_imp;
+	private Double size_imp;
 	
 	@Column(nullable=true)
-	private double size_met;
+	private Double size_met;
 	
 	@Column(nullable=true)
 	private String description;
@@ -28,7 +33,7 @@ public class Cutter {
 		
 	}
 	
-//	public Cutter(String type, double size_imp, double size_met, float cost, String desc) {
+//	public Cutter(String type, Double size_imp, Double size_met, float cost, String desc) {
 //		this.type = type;
 //		this.size_imp = size_imp;
 //		this.size_met = size_met;
@@ -48,19 +53,19 @@ public class Cutter {
 		this.type = type;
 	}
 	
-	public double getSizeImp() {
+	public Double getSizeImp() {
 		return size_imp;
 	}
 	
-	public void setSizeImp(double size_imp) {
+	public void setSizeImp(Double size_imp) {
 		this.size_imp = size_imp;
 	}
 	
-	public double getSizeMet() {
+	public Double getSizeMet() {
 		return size_met;
 	}
 	
-	public void setSizeMet(double size_met) {
+	public void setSizeMet(Double size_met) {
 		this.size_met = size_met;
 	}
 	

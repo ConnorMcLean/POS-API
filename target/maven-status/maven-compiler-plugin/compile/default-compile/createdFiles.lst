@@ -9,7 +9,6 @@ com\munroeng\SAI\config\AppConfig.class
 com\munroeng\SAI\config\WebConfig.class
 com\munroeng\SAI\DAO\MachineOrder_AccessoryDAOImpl.class
 com\munroeng\SAI\DAO\UserDAOImpl.class
-com\munroeng\SAI\DAO\MachineOrder_CutterDAOImpl.class
 com\munroeng\SAI\DAO\AccessoryDAOImpl.class
 com\munroeng\SAI\controller\MachineController.class
 com\munroeng\SAI\controller\MachineOrder_CutterController.class

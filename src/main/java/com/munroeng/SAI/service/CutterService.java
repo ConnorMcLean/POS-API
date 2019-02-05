@@ -1,3 +1,5 @@
+//Service interface for cutter model
+//written by Connor McLean
 package com.munroeng.SAI.service;
 
 import java.util.List;

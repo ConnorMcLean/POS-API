@@ -1,3 +1,5 @@
+//Controller for MachineOrder used in RESTful API service
+//written by Connor McLean
 package com.munroeng.SAI.controller;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.munroeng.SAI.models.Accessory;
+import com.munroeng.SAI.models.Cutter;
 import com.munroeng.SAI.models.Machine;
 import com.munroeng.SAI.models.MachineOrder;
 import com.munroeng.SAI.service.MachineOrderService;
@@ -33,7 +36,6 @@ public class MachineOrderController {
 		return ResponseEntity.ok().body("New machine_order has been saved with ID" + id );
 	}
 	
-	
 	//Add new accessory to machine_order
 	@PostMapping("/order/{order_id}/machine_order/{machine_id}/accessory")
 	public ResponseEntity<?> saveAccessory(@PathVariable("machine_id") long machine_id, @PathVariable("order_id") long order_id,
@@ -42,11 +44,28 @@ public class MachineOrderController {
 		return ResponseEntity.ok().body("New accessory has been saved to machine_order with ID : " +  machine_id);
 	}
 	
+	//Delete accessory from machien_order
 	@DeleteMapping("/order/{order_id}/machine_order/{machine_id}/accessory")
 	public ResponseEntity<?> DeleteAccessory(@PathVariable("machine_id") long machine_id, @PathVariable("order_id") long order_id,
 	@RequestBody Accessory accessory){
 		long id = machine_orderService.RemoveAccessory(machine_id, order_id, accessory);
 		return ResponseEntity.ok().body("Accessory has been deleted from machine_order with ID : " +  machine_id);
+	}
+	
+	//Add new accessory to machine_order
+	@PostMapping("/order/{order_id}/machine_order/{machine_id}/cutter")
+	public ResponseEntity<?> saveCutter(@PathVariable("machine_id") long machine_id, @PathVariable("order_id") long order_id,
+	@RequestBody Cutter cutter){
+		long id = machine_orderService.saveCutter(machine_id, order_id, cutter);
+		return ResponseEntity.ok().body("New cutter has been saved to machine_order with ID : " +  machine_id);
+	}
+	
+	//Delete accessory from machien_order
+	@DeleteMapping("/order/{order_id}/machine_order/{machine_id}/cutter")
+	public ResponseEntity<?> DeleteCutter(@PathVariable("machine_id") long machine_id, @PathVariable("order_id") long order_id,
+	@RequestBody Cutter cutter){
+		long id = machine_orderService.RemoveCutter(machine_id, order_id, cutter);
+		return ResponseEntity.ok().body("Cutter has been deleted from machine_order with ID : " +  machine_id);
 	}
 	
 	//Get a machine_order by id

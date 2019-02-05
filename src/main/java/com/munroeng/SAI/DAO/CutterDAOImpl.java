@@ -1,3 +1,5 @@
+//DAO interface implementation for cutter model
+//written by Connor McLean
 package com.munroeng.SAI.DAO;
 
 import java.util.List;

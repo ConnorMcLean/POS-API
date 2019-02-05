@@ -1,3 +1,5 @@
+//Service interface implementation for cutter model
+//written by Connor McLean
 package com.munroeng.SAI.service;
 
 import java.util.List;
@@ -16,22 +18,26 @@ public class CutterServiceImpl implements CutterService {
 	@Autowired
 	private CutterDAO cutterDAO;
 
+	//Save cutter
 	@Transactional
 	@Override
 	public long save(Cutter cutter) {
 		return cutterDAO.save(cutter);
 	}
-
+	
+	//get cutter by ID
 	@Override
 	public Cutter get(long id) {
 		return cutterDAO.get(id);
 	}
-
+	
+	//get list of all cutters in system
 	@Override
 	public List<Cutter> list() {
 		return cutterDAO.list();
 	}
 
+	//update cutter by id
 	@Override
 	@Transactional
 	public void update(long id, Cutter cutter) {
@@ -39,6 +45,7 @@ public class CutterServiceImpl implements CutterService {
 		
 	}
 
+	//delete cutter by id
 	@Override
 	@Transactional
 	public void delete(long id) {

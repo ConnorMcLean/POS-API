@@ -6,6 +6,8 @@ package com.munroeng.SAI.models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity(name="MachineOrder_Cutter")
 @Table(name="Machine_Order_Cutters")
 public class MachineOrder_Cutter {
@@ -13,7 +15,8 @@ public class MachineOrder_Cutter {
 	@EmbeddedId
 	private MachineOrder_CutterId id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonBackReference
+	@ManyToOne
 	@MapsId("machine_order_id")
 	private MachineOrder machine_order;
 	
@@ -33,15 +36,13 @@ public class MachineOrder_Cutter {
 		return id.getMachineOrderId();
 	}
 	
-	
-	
 	public long getCutterId() {
 		return id.getCutterId();
 	}
 	
-	public MachineOrder getMachineOrder() {
-		return machine_order;
-	}
+//	public MachineOrder getMachineOrder() {
+//		return machine_order;
+//	}
 	
 	public Cutter getCutter() {
 		return cutter;

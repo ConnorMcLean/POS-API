@@ -1,4 +1,4 @@
-//MachineOeder class model for db table
+//MachineOrder class model for db table
 //used for single sided many to many relationship between orders and machine reference table
 //written by Connor McLean
 
@@ -35,17 +35,12 @@ public class MachineOrder {
 	private Date created_on;
 	
 	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.MERGE)
-//	@MapsId("machine_id")
 	@JoinColumn(name="machine_id")
 	Machine machine;
 	
-//	@ManyToOne(targetEntity=Order.class)
 	@JoinColumn(name="order_id")
 	private long order_id;
 	
-////	@ManyToOne(targetEntity=Machine.class)
-//	@JoinColumn(name="machine_id")
-//	private long machine_id;
 
 	@JsonManagedReference
 	@OneToMany(
@@ -54,6 +49,7 @@ public class MachineOrder {
 			orphanRemoval=true)
 	List<MachineOrder_Accessory> accessories = new ArrayList<>();
 	
+	@JsonManagedReference
 	@OneToMany(
 			mappedBy="machine_order",
 			cascade = CascadeType.ALL,
@@ -62,22 +58,9 @@ public class MachineOrder {
 	
 	public MachineOrder() {}
 	
-//	public MachineOrder(long order, long machine_id, String serialNo) {
-//		this.order_id = order;
-////		this.machine_id = machine_id;
-//		this.serialNo = serialNo;
-//		this.setMachine(machine);
-//	}
-	
-//	private Machine machine;
-	
 	public String getCreated() {
 		return created_on.toString();
 	}
-	
-//	public long getMachineId() {	
-//		return machine_id;
-//	}
 	
 	public long getMachineOrder_id() {
 		return machine_order_id;
@@ -137,7 +120,7 @@ public class MachineOrder {
 		         iterator.hasNext(); ) {
 	        MachineOrder_Cutter MacOrd_Cut = iterator.next();
 	 
-	        if (MacOrd_Cut.getMachineOrder().equals(this) &&
+	        if (MacOrd_Cut.getMachineOrderId() == this.machine_order_id &&
 	        		MacOrd_Cut.getCutter().equals(c)) {
 	            iterator.remove();
 	            MacOrd_Cut.setMachineOrder(null);
@@ -194,14 +177,8 @@ public class MachineOrder {
 		return machine;
 	}
 
-//	public void setMachineId(long id) {
-//		this.machine.setId(id);
-//	}
-
 	public void setMachine(Machine machine) {
 		this.machine = machine;
 	}
-	
-	
 		
 }

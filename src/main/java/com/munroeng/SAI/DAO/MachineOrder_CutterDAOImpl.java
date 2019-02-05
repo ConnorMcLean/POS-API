@@ -51,7 +51,7 @@ public class MachineOrder_CutterDAOImpl implements MachineOrder_CutterDAO {
       Session session = sessionFactory.getCurrentSession();
       MachineOrder_Cutter machine_order_cutter2 = session.byId(MachineOrder_Cutter.class).load(id);
       machine_order_cutter2.setCutter(machine_order_cutter.getCutter());
-      machine_order_cutter2.setMachineOrder(machine_order_cutter.getMachineOrder());
+//      machine_order_cutter2.setMachineOrder(machine_order_cutter.getMachineOrder());
       machine_order_cutter2.setCutterId(machine_order_cutter.getCutterId());
       machine_order_cutter2.setMachineOrderId(machine_order_cutter.getMachineOrderId());
       session.flush();
