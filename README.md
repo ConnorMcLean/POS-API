@@ -6,6 +6,8 @@ Written in Java, using the Spring and hibernate ORM frameworks. Connects to a Po
 
 Spring is used for dependency injection and additional features, whilst Hibernate was used for its ORM and query strengths. Hibernate also implements c3po to manage connection pool.
 
+User tables are currently WIP until security and front-end integration
+
 Build and run locally using Maven and Tomcat.
 
 Build: "mvn clean install"
