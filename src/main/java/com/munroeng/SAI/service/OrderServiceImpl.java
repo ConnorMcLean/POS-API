@@ -74,6 +74,15 @@ public class OrderServiceImpl implements OrderService {
 		}
 	}
 	
+	//TEST
+	//Calculate total order cost and set it
+	public Order CalcOrderCost(long order_id) {
+		
+		Order o = orderDAO.CalcTotalCost(order_id);
+		InitializeOrder(o);
+		return o;
+	}
+	
 	//Helper function to initialize all nested objects in an order
 	public void InitializeOrder(Order o) {
 		Hibernate.initialize(o.getMachineOrders());

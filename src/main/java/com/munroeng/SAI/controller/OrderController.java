@@ -67,6 +67,17 @@ public class OrderController {
 		return ResponseEntity.ok().body(orders);
 	}
 	
+	//TEST
+	//Calculate and set total order cost
+	@GetMapping("/order/{order_id}/calc_order_cost")
+	public ResponseEntity<?> calcOrderCost(@PathVariable("order_id") long order_id){
+		Order o = orderService.CalcOrderCost(order_id);
+		if(o == null) {
+			return ResponseEntity.badRequest().body("Order not found");
+		}
+		return ResponseEntity.ok().body(o);
+	}
+	
 	//Delete a order by id
 	@DeleteMapping("customer/{customer_id}/order/{order_id}")
 	   public ResponseEntity<?> delete(@PathVariable("customer_id") long cust_id, @PathVariable("order_id") long order_id) {

@@ -152,12 +152,13 @@ public class MachineOrder {
 	
 	//TODO:FIX COST CALCULATION
 	
-//	//Tally up costs from various tables
+	//Tally up costs from various tables for order object
+	//TEST
 	public float getMachineOrderCost() {
 		float cost = 0;
 		int i = 0, j = 0;
 		
-//		cost += machine.getCost();
+		cost += machine.getCost();
 		
 		
 		while(accessories.size() < i) {

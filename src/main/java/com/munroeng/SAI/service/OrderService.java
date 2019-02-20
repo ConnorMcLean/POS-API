@@ -20,4 +20,6 @@ public interface OrderService {
 
 	public List<Order> listCustOrders(long cust_id);
 	
+	public Order CalcOrderCost(long order_id);
+	
 }

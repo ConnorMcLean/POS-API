@@ -150,7 +150,9 @@ public class Order {
 		this.machine_orders = machine_orders;
 	}
 	
-	public void setTotalCost() {
+	
+	//TEST
+	public void CalcTotalCost() {
 		this.total_cost = 0;
 		int i = 0;
 		while(machine_orders.size() < i) {

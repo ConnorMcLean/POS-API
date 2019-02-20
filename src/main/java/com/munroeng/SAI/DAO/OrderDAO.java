@@ -19,4 +19,6 @@ public interface OrderDAO {
 	void delete(long cust_id, long order_id);
 
 	public List<Order> listCustOrders(long cust_id);
+	
+	public Order CalcTotalCost(long order_id);
 }

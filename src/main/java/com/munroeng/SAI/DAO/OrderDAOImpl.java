@@ -100,4 +100,16 @@ public class OrderDAOImpl implements OrderDAO {
 	    return query.getResultList();
 	}
 
+	
+	//TEST
+	//Calculate and set total order cost
+	@Override
+	public Order CalcTotalCost(long order_id) {
+		Session session = sessionFactory.getCurrentSession();
+		Order o = session.get(Order.class, order_id);
+		o.CalcTotalCost();
+		session.saveOrUpdate(o);
+		return o;
+	}
+
 }
