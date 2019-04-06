@@ -96,4 +96,11 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 	}
 
+	@Override
+	public List<Customer> getCustByName(String name) {
+		List<Customer> customers = customerDAO.getCustByName(name);
+		InitializeCustomerList(customers);
+		return customers;
+	}
+
 }

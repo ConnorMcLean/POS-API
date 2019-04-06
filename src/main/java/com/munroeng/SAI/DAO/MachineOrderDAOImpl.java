@@ -43,7 +43,13 @@ public class MachineOrderDAOImpl implements MachineOrderDAO {
 	    		);
 	    Query<Machine> query = session.createQuery(cq);
 	    Machine Mo = query.getSingleResult();
+	    
+	    //Add machine 
 	    m.setMachine(Mo);
+	    
+	    //Set generation flags to False
+	    m.deactivateSAI();
+	    m.deactivateSchedule();
 	    
 		session.save(m);
 		return m.getMachineOrder_id();
@@ -105,6 +111,8 @@ public class MachineOrderDAOImpl implements MachineOrderDAO {
       machine_order2.setOrderId(machine_order.getOrderId());
       machine_order2.setMachineOrder_id(machine_order.getMachineOrder_id());
       machine_order2.setMachine(machine_order.getMachine());
+      machine_order2.setSAI(machine_order.getSAI());
+      machine_order2.setSchedule(machine_order.getSchedule());
       session.flush();
    }
 

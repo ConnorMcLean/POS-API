@@ -29,6 +29,7 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public long save(long cust_id, Order o) {
 		o.setCustId(cust_id);
+		o.deactivateCompleted();
 		sessionFactory.getCurrentSession().save(o);
 		return o.getId();
 		
@@ -42,6 +43,7 @@ public class OrderDAOImpl implements OrderDAO {
 	      CriteriaQuery<Order> cq = cb.createQuery(Order.class);
 	      Root<Order> root = cq.from(Order.class);
 	      cq.select(root);
+	      cq.orderBy(cb.desc(root.get("created_on")));		//Should order by most recent date
 	      Query<Order> query = session.createQuery(cq);
 	      return query.getResultList();
 	}
@@ -73,6 +75,8 @@ public class OrderDAOImpl implements OrderDAO {
       order2.setOrderRef(order.getOrderRef());
       order2.setShipAddr(order.getShipAddr());
       order2.setCustId(order.getCustId());
+      order2.setOrderDate(order.getOrderDate());
+      order2.setCompleted(order.getCompleted());
       session.flush();
       return order2;
    }
@@ -88,6 +92,8 @@ public class OrderDAOImpl implements OrderDAO {
    }
 
    //Get all orders for a specific customer
+   //TODO: TEST FOR ORDERING
+   
 	@Override
 	public List<Order> listCustOrders(long cust_id) {
 	    Session session = sessionFactory.getCurrentSession();
@@ -96,12 +102,13 @@ public class OrderDAOImpl implements OrderDAO {
 	    Root<Order> root = cq.from(Order.class);
 	    cq.select(root);
 	    cq.where(cb.equal(root.get("customer_id"), cust_id));
+	    cq.orderBy(cb.desc(root.get("created_on")));		//Should order by most recent date
 	    Query<Order> query = session.createQuery(cq);
 	    return query.getResultList();
 	}
 
 	
-	//TEST
+	//TODO: TEST
 	//Calculate and set total order cost
 	@Override
 	public Order CalcTotalCost(long order_id) {

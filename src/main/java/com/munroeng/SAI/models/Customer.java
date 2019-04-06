@@ -1,9 +1,12 @@
 package com.munroeng.SAI.models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity(name="Customer")
 @Table(name="Customers")
@@ -30,6 +33,11 @@ public class Customer {
 	
 //	@Column(nullable=false)
 	private String created_by;
+	
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="created_on")
+	private Date created_on;
 	
 	@OneToMany(mappedBy = "customer_id", fetch=FetchType.LAZY)
 	private List<Order> orders = new ArrayList<Order>();
@@ -107,6 +115,14 @@ public class Customer {
 	
 	public void setCreator(String created_by) {
 		this.created_by = created_by;
+	}
+	
+	public Date getCreatedDate() {
+		return this.created_on;
+	}
+	
+	public void setCreatedDate(Date date) {
+		this.created_on = date;
 	}
 	
 	

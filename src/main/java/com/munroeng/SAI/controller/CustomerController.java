@@ -60,5 +60,13 @@ public class CustomerController {
 	      return ResponseEntity.ok().body("customer has been deleted successfully.");
 	   }
 	
+	//TODO: TEST BELOW ENDPOINTS
+	
+	//Get a customer by name
+	@GetMapping("/customer/{name}")
+	   public ResponseEntity<List<Customer>> getCustByName(@PathVariable("name") String name) {
+	      List<Customer> customers = customerService.getCustByName(name);
+	      return ResponseEntity.ok().body(customers);
+	   }
 	
 }

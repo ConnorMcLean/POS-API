@@ -41,6 +41,13 @@ public class MachineOrder {
 	@JoinColumn(name="order_id")
 	private long order_id;
 	
+	//If SAI has been generated for this machine
+	@Column(name="SAI_generated")
+	private String sai;
+	
+	@Column(name="schedule_generated")
+	private String schedule;
+	
 
 	@JsonManagedReference
 	@OneToMany(
@@ -180,6 +187,38 @@ public class MachineOrder {
 
 	public void setMachine(Machine machine) {
 		this.machine = machine;
+	}
+	
+	public void setSAI(String gen) {
+		this.sai = gen;
+	}
+	
+	public void activateSAI() {
+		this.sai = "True";
+	}
+	
+	public void deactivateSAI() {
+		this.sai = "Fase";
+	}
+	
+	public String getSAI() {
+		return this.sai;
+	}
+	
+	public void setSchedule(String gen) {
+		this.schedule = gen;
+	}
+	
+	public void activateSchedule() {
+		this.schedule = "True";
+	}
+	
+	public void deactivateSchedule() {
+		this.schedule = "Fase";
+	}
+	
+	public String getSchedule() {
+		return this.schedule;
 	}
 		
 }

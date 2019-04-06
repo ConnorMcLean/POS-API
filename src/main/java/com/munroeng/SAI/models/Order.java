@@ -51,6 +51,9 @@ public class Order {
 			cascade = CascadeType.ALL,
 			orphanRemoval=true)
 	private List<MachineOrder> machine_orders = new ArrayList<>();
+	
+	@Column(name="completed")
+	private String completed;
 
 	//empty constructor
 	public Order() {}
@@ -118,6 +121,14 @@ public class Order {
 		return order_ref;
 	}
 	
+	public void setOrderDate(Date date) {
+		this.created_on = date;
+	}
+	
+	public Date getOrderDate() {
+		return this.created_on;
+	}
+	
 	public void setOrderRef(String CustOrderId) {
 		this.order_ref = CustOrderId;
 	}
@@ -159,6 +170,22 @@ public class Order {
 			this.total_cost += machine_orders.get(i).getMachineOrderCost();
 		}
 		
+	}
+	
+	public void setCompleted(String gen) {
+		this.completed = gen;
+	}
+	
+	public void activateCompleted() {
+		this.completed = "True";
+	}
+	
+	public void deactivateCompleted() {
+		this.completed = "Fase";
+	}
+	
+	public String getCompleted() {
+		return this.completed;
 	}
 	
 }

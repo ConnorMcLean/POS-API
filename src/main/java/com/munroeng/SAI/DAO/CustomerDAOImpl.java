@@ -40,6 +40,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	      Root<Customer> root = cq.from(Customer.class);
 	      cq.select(root);
 	      Query<Customer> query = session.createQuery(cq);
+	      cq.orderBy(cb.desc(root.get("name")));
 	      return query.getResultList();
 	}
 
@@ -62,6 +63,7 @@ public class CustomerDAOImpl implements CustomerDAO {
       customer2.setEmail(customer.getEmail());
       customer2.setName(customer.getName());
       customer2.setOrders(customer.getOrders());
+      customer2.setCreatedDate(customer.getCreatedDate());
       session.flush();
    }
 
@@ -71,5 +73,22 @@ public class CustomerDAOImpl implements CustomerDAO {
       Customer customer = session.byId(Customer.class).load(id);
       session.delete(customer);
    }
+   
+
+   //TODO: VERIFY SEARCH
+   
+	@Override
+	public List<Customer> getCustByName(String name) {
+	      Session session = sessionFactory.getCurrentSession();
+	      CriteriaBuilder cb = session.getCriteriaBuilder();
+	      CriteriaQuery<Customer> cq = cb.createQuery(Customer.class);
+	      Root<Customer> root = cq.from(Customer.class);
+	      cq.select(root);
+	      cq.where(cb.like(root.get("name"), name));
+//	      cq.where(cb.equal(root.get("name"), name));
+//	      cq.orderBy(cb.desc(root.get("name")));
+	      Query<Customer> query = session.createQuery(cq);
+	      return query.getResultList();
+	}
 
 }
